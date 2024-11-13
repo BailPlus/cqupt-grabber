@@ -61,15 +61,13 @@ sleep_time(int):轮询间隔时间
         if res['code'] != 0:
             raise RuntimeError(res['info'])
         return [Lesson(i) for i in res['data']]
-    def grab(self,lesson:Lesson)->bool:
+    def grab(self,lesson:Lesson):
         '''选课
-lesson(Lesson):课程对象
-返回值:选课成功性(bool)'''
+lesson(Lesson):课程对象'''
         url = URL+'/post.php'
         res = requests.post(url,headers={'Cookie':self.cookie},data=lesson.raw_data)
         res_json = res.json()
         if res_json['code'] != 0:
-            print(res_json)
             raise RuntimeError(res_json['info'])
     def close(self):
         url = URL+'/logout.php'
